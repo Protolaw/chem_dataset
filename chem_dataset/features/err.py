@@ -1,6 +1,12 @@
 from random import randint, choice
 
 def charge_err(smiles):
+    """
+    It takes a SMILES string as input, and randomly flips the charge of a single atom in the molecule
+    
+    :param smiles: The SMILES string of the molecule
+    :return: a string.
+    """
     try:
         x = randint(0, 1)
         p_list, n_list = [], []
@@ -22,6 +28,13 @@ def charge_err(smiles):
 
 
 def brace_err(smiles):
+    """
+    It randomly chooses a position in the SMILES string and either deletes a character, adds a closing
+    bracket, or adds an opening bracket
+    
+    :param smiles: The SMILES string to be mutated
+    :return: a string with a random error in it.
+    """
     try:
         x = randint(0, 3)
 
@@ -52,6 +65,12 @@ def brace_err(smiles):
 
 
 def lc_err(smiles):
+    """
+    It takes a SMILES string and randomly capitalizes one of the lowercase letters
+    
+    :param smiles: The SMILES string to be mutated
+    :return: A string with a lowercase letter changed to uppercase.
+    """
     try:
         if smiles.isupper() == False:
             lc = ['c', 'o', 's', 'n', 'p']
@@ -68,6 +87,12 @@ def lc_err(smiles):
         return smiles
 
 def cycle_err(smiles):
+    """
+    It takes a string (smiles) and returns a string with a random character removed
+    
+    :param smiles: the SMILES string
+    :return: A string with a random digit removed.
+    """
     try:
         if any(c.isdigit() for c in smiles):
             nbr_list = []

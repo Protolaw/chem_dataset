@@ -14,7 +14,7 @@ def plot(df, path_graphs, buff):
         tick.label.set_fontsize(16)
     for tick in axes.yaxis.get_major_ticks():
         tick.label.set_fontsize(16)
-    inp = input('show, edit, save the plot or exit\n')
+    inp = input('[show], [edit], [save] the plot or [exit]\n\t')
     if inp == 'show':
         plt.show()
         plot(df, path_graphs, buff)
@@ -40,16 +40,18 @@ def df_create(path_to_stat, buff):
 
 def main():
     head_list = ['rot_bonds', 'h_acc', 'h_don', 'heavy_atoms', 'ring_count', 'bonds_count', 'mol_mass']
-    path = os.getcwd()[:-17]
+    main_dir = os.path.join(os.getcwd(), '../../')
+    os.chdir(main_dir)
+    main_dir = os.getcwd()
     stat_file = str()
     while stat_file not in head_list:
-        stat_file = input("Choose stat_file from list or 'exit'\n" + str(head_list) + '\n')
+        stat_file = input("Choose stat_file from list or 'exit'\n" + str(head_list) + '\n\t')
         if stat_file == 'exit':
             exit()
     buff = stat_file
     stat_file = stat_file + '.csv'
-    path_to_stat = os.path.join(path, "data/stat/", stat_file)
-    path_graphs = os.path.join(path, "reports/figures/")
+    path_to_stat = os.path.join(main_dir, "reports/figures/table", stat_file)
+    path_graphs = os.path.join(main_dir, "reports/figures/graphs")
     df_proc = df_create(path_to_stat, buff)
     chart = plot(df_proc, path_graphs, buff)
 

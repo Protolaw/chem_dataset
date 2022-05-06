@@ -3,6 +3,13 @@ import ftplib
 from tqdm import tqdm
 
 def ftp_download(path,ftp_addr, ftp_path):
+    """
+    > This function downloads all files from a given FTP address and path to a given local path
+    
+    :param path: the path to the directory where you want to download the files
+    :param ftp_addr: the address of the ftp server
+    :param ftp_path: the path to the directory on the ftp server that you want to download from
+    """
     ftp = ftplib.FTP(ftp_addr)
     ftp.login()
     ftp.cwd(ftp_path)

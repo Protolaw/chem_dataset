@@ -208,13 +208,14 @@ def main():
     далее определяет заголовки строк - список
     По 1 файлу обрабатывает отправляя в функцию read_std_pubchem
     """
-    path = os.path.join(os.getcwd()[:-9], 'data/')
-    output_file_path = os.path.join(path, 'processed/valid/pubchem_test.csv')
-    mistakes_file_path = os.path.join(path, 'processed/mis/pubchem_test_mistakes.csv')
-    path = os.path.join(path, 'raw/' )
+    main_dir = os.path.join(os.getcwd(), '../../')
+    os.chdir(main_dir)
+    main_dir = os.getcwd()
+    output_file_path = os.path.join(main_dir, 'data/interim/valid/pubchem_test.csv')
+    mistakes_file_path = os.path.join(main_dir, 'data/interim/mis/pubchem_parsing_mis.csv')
+    path = os.path.join(main_dir, 'data/raw/' )
     batch_size = 10000
     standardize_pubchem(path, output_file_path, mistakes_file_path, batch_size)
-
 
 if __name__ == '__main__':
     main()

@@ -40,10 +40,12 @@ def rm_dup(file_in, file_out, file_mis):
                 mis.writerow(line)
 
 def main():
-    path = os.path.join(os.getcwd()[:-9], 'data/processed')
-    file_in = os.path.join(path, 'valid/pubchem_test.csv')
-    file_out = os.path.join(path, 'valid/clean.csv')
-    file_mis = os.path.join(path, 'mis/dup.csv')
+    main_dir = os.path.join(os.getcwd(), '../../')
+    os.chdir(main_dir)
+    main_dir = os.getcwd()
+    file_in = os.path.join(main_dir, 'data/interim/valid/pubchem_test.csv')
+    file_out = os.path.join(main_dir, 'data/processed/clean.csv')
+    file_mis = os.path.join(main_dir, 'data/interim/mis/dup.csv')
     rm_dup(file_in, file_out, file_mis)
 
 if __name__ == '__main__':

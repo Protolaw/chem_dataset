@@ -1,10 +1,7 @@
-from random import shuffle
-from io import StringIO
-from itertools import chain, islice
 from subprocess import run
-from collections import defaultdict
-from time import time
+from typing import Optional, Union, List, Any
 
+from CGRtools.containers import MoleculeContainer
 from CGRtools.files import SDFRead, SDFWrite, SMILESRead
 from CGRtools.exceptions import InvalidAromaticRing
 from multiprocessing import Pool
@@ -84,7 +81,7 @@ def standardize_molecule(molecule: MoleculeContainer) -> Optional[MoleculeContai
 
 def run_std(readed_molecules):
     with Pool(7) as p:
-        filtered_molecules = p.map(std_molecule, readed_molecules)
+        filtered_molecules = p.map(standardize_molecule, readed_molecules)
     return filtered_molecules
 
 def standardize_pubchem_batch(molecules: List[MoleculeContainer], pubchem_ids: List[int],
@@ -201,12 +198,13 @@ def standardize_pubchem(input_files_path: str, output_file: str, mistake_file: s
 # По 1 файлу обрабатывает отправляя в функцию read_std_pubchem
 
 def main():
-    path = os.path.join(os.getcwd()[:-9], 'data/')
-    output_file_path = os.path.join(path, 'processed/pubchem_test.csv')
-    mistakes_file_path = os.path.join(path, 'processed/pubchem_test_mistakes.csv')
-    path = os.path.join(path, 'raw/' )
+    main_dir = os.path.join(os.getcwd(), '../../')
+    os.chdir(main_dir)
+    main_dir = os.getcwd()
+    output_file_path = os.path.join(main_dir, 'data/interim/valid/pubchem_test.csv')
+    mistakes_file_path = os.path.join(main_dir, 'data/interim/mis/pubchem_parsing_mis.csv')
+    path = os.path.join(main_dir, 'data/raw/' )
     batch_size = 10000
-
     standardize_pubchem(path, output_file_path, mistakes_file_path, batch_size)
 
 if __name__ == '__main__':
