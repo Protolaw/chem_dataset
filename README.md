@@ -3,52 +3,70 @@ Chem dataset
 
 Parsing and filtering 2d molecules' data
 
-Project Organization
-------------
+## Prerequisites
+**Python 3**
 
-    ├── LICENSE
-    ├── Makefile            <- Makefile with commands like `make data` or `make train`
-    ├── README.md           <- The top-level README for developers using this project.
-    ├── data
-    │   ├── concat          <- Data to concatenate
-    │   ├── interim         <- Intermediate data that has been transformed.
-    │   ├── processed       <- The final, canonical data sets for modeling.
-    │   └── raw             <- The original, immutable data dump.
-    │   
-    ├── docs                <- A default Sphinx project; see sphinx-doc.org for details
-    │   
-    │   
-    ├── notebooks           <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                          the creator's initials, and a short `-` delimited description, e.g.
-    │                          `1.0-jqp-initial-data-exploration`.
-    │   
-    ├── references          <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── reports             <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures         <- Generated graphics and figures to be used in reporting
-    │
-    ├── requirements.txt    <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
-    │
-    ├── setup.py            <- makes project pip installable (pip install -e .) so chem_dataset can be imported
-    ├── chem_dataset                    <- Source code for use in this project.
-    │   ├── __init__.py                 <- Makes chem_dataset a Python module
-    │   │
-    │   ├── data                        <- Scripts to download or generate data
-    │   │   ├── dup.py                  <- Remove duplicates 
-    │   │   ├── ftp_download.py         <- Download data files from ftp
-    │   │   ├── parser_multi_pool.py    <- Parsing data by multiprocess lib
-    │   │   └── parser_ray_pubchem.py   <- Parsing data by ray
-    │   │
-    │   ├── features        <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
-    │   │
-    │   └── visualization   <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
-    │
-    └── tox.ini             <- tox file with settings for running tox; see tox.readthedocs.io
+Most of these are okay to install with **pip**. Install the necessary libraries for this project using this command
+`pip install -r requirements.txt`
 
+## Getting started
 
---------
+1. **Get the code.**
+`$ git clone` the repo and install the Python dependencies
+2. **Load the data.**
+I don't distribute the data in the Git repo, to get data from Pubchem database by FTP site run the command
 
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+```sh
+from chem_dataset.data.ftp_download import load_data
+
+load_data()
+```
+
+3. **Parse/StandarDize the data.**
+In this step (longest by duration) you can choose by which method are going to parse your data (close all your threads for maximum efficiency)
+Alternative 1 : by using multiprocessing lib 
+
+```sh
+from chem_dataset.data.parser_multi_pool import parse
+
+parse()
+```
+
+Alternative 2 : by using Ray framework 
+```sh
+from chem_dataset.data.parser_ray_pubchem import parse_ray
+
+parse_ray()
+```
+
+4. **Remove the duplicates.**
+Presence of duplicates can overestimate your results, so to remove them you should run the command
+
+```sh
+from chem_dataset.data.dup import delete_dup
+
+delete_dup()
+```
+
+You get the standardized and cleaned dataset
+5. **Collecting statistics.**
+By given parameters collecting statistic from dataset
+
+```sh
+from chem_dataset.features.build_features import stat
+
+stat()
+```
+
+6. **Visualize the statistics.**
+This will visualize the statistics of dataset
+By running following command you have to choose which statistic you have to visualize (by writing in console)
+Then user have a choice to [show] the plot, set the boundaries (by command [edit], [save] the resulting plot or terminate the program execution [exit])
+
+```sh
+from chem_dataset.visualization.visualize import vis
+
+vis()
+```
+
+Lastly, note that this is currently research code, so a lot of the documentation is inside individual Python files. If you wish to work with this code, you'll have to get familiar with it and be comfortable reading Python code.

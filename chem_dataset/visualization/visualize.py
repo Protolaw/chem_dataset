@@ -38,11 +38,23 @@ def df_create(path_to_stat, buff):
     df_proc['molecules'] = df_proc['molecules'] / s * 100
     return df_proc
 
-def main():
+def vis():
     head_list = ['rot_bonds', 'h_acc', 'h_don', 'heavy_atoms', 'ring_count', 'bonds_count', 'mol_mass']
-    main_dir = os.path.join(os.getcwd(), '../../')
-    os.chdir(main_dir)
+    # main_dir = os.path.join(os.getcwd(), '../../')
+    # os.chdir(main_dir)
+    # main_dir = os.getcwd()
+
     main_dir = os.getcwd()
+    path = main_dir
+
+    try:
+        isExist = os.path.exists(path + '/reports/figures/graphs')
+        if not isExist:
+            os.mkdir(path + '/reports/figures/graphs')
+        print('ok')
+    except OSError as error: 
+        print(error)
+
     stat_file = str()
     while stat_file not in head_list:
         stat_file = input("Choose stat_file from list or 'exit'\n" + str(head_list) + '\n\t')
@@ -55,6 +67,3 @@ def main():
     df_proc = df_create(path_to_stat, buff)
     chart = plot(df_proc, path_graphs, buff)
 
-
-if __name__ == '__main__':
-    main()

@@ -197,15 +197,30 @@ def standardize_pubchem(input_files_path: str, output_file: str, mistake_file: s
 # далее определяет заголовки строк - список
 # По 1 файлу обрабатывает отправляя в функцию read_std_pubchem
 
-def main():
-    main_dir = os.path.join(os.getcwd(), '../../')
-    os.chdir(main_dir)
+def parse():
+    # main_dir = os.path.join(os.getcwd(), '../../')
+    # os.chdir(main_dir)
+    # main_dir = os.getcwd()
+
     main_dir = os.getcwd()
+    path = main_dir
+
+    try:
+        isExist = os.path.exists(path + '/data/interim')
+        isExist_2 = os.path.exists(path + '/data/interim/valid')
+        isExist_3 = os.path.exists(path + '/data/interim/mis')
+        if not isExist:
+            os.mkdir(path + '/data/interim')
+        if not isExist_2:
+            os.mkdir(path + '/data/interim/valid')
+        if not isExist_3:
+            os.mkdir(path + '/data/interim/mis')
+        print('ok')
+    except OSError as error: 
+        print(error)
+
     output_file_path = os.path.join(main_dir, 'data/interim/valid/pubchem_test.csv')
     mistakes_file_path = os.path.join(main_dir, 'data/interim/mis/pubchem_parsing_mis.csv')
     path = os.path.join(main_dir, 'data/raw/' )
     batch_size = 10000
     standardize_pubchem(path, output_file_path, mistakes_file_path, batch_size)
-
-if __name__ == '__main__':
-    main()

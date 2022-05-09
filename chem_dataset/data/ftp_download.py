@@ -26,12 +26,22 @@ def ftp_download(path,ftp_addr, ftp_path):
             pass
     ftp.quit()
 
-def main():
+def load_data():
     path = os.getcwd()
-    path = os.path.join(path[:-3], 'data/raw/')
+
+    try:
+        isExist = os.path.exists(path + '/data')
+        isExist_2 = os.path.exists(path + '/data/raw')
+        if not isExist:
+            os.mkdir(path + '/data')
+        if not isExist_2:
+            os.mkdir(path + '/data/raw')
+        print('ok')
+    except OSError as error: 
+        print(error)
+
+    path = os.path.join(path, 'data/raw/')
     ftp_addr = 'ftp.ncbi.nlm.nih.gov'
     ftp_path = 'pubchem/Compound/CURRENT-Full/SDF/'
     ftp_download(path,ftp_addr, ftp_path)
 
-if __name__ == '__main__':
-    main()

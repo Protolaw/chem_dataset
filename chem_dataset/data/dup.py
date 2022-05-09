@@ -39,14 +39,24 @@ def rm_dup(file_in, file_out, file_mis):
             else:
                 mis.writerow(line)
 
-def main():
-    main_dir = os.path.join(os.getcwd(), '../../')
-    os.chdir(main_dir)
+def delete_dup():
+    # main_dir = os.path.join(os.getcwd(), '../../')
+    # os.chdir(main_dir)
+    # main_dir = os.getcwd()
+
     main_dir = os.getcwd()
+    path = main_dir
+
+    try:
+        isExist = os.path.exists(path + '/data/processed')
+        if not isExist:
+            os.mkdir(path + '/data/processed')
+        print('ok')
+    except OSError as error: 
+        print(error)
+
     file_in = os.path.join(main_dir, 'data/interim/valid/pubchem_test.csv')
     file_out = os.path.join(main_dir, 'data/processed/clean.csv')
     file_mis = os.path.join(main_dir, 'data/interim/mis/dup.csv')
     rm_dup(file_in, file_out, file_mis)
 
-if __name__ == '__main__':
-    main()

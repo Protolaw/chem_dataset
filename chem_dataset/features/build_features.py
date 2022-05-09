@@ -33,7 +33,7 @@ def analyze(file, head_list):
     return list_dict
 
 
-def write_to_scv(path, head_list, x):
+def write_to_csv(path, head_list, x):
     """
     This function takes in a path, a list of headers, and a list of dictionaries or a dictionary. It
     then writes the data to a csv file
@@ -96,12 +96,30 @@ def mol_mass_stat(file, int_range, flag, limit):
     return dict_mol_mass
 
 
-def main():
+def stat():
 
-    main_dir = os.path.join(os.getcwd(), '../../')
-    os.chdir(main_dir)
+    # main_dir = os.path.join(os.getcwd(), '../../')
+    # os.chdir(main_dir)
+    # main_dir = os.getcwd()
+
     main_dir = os.getcwd()
-    path_to_data = os.path.join(main_dir, 'data/processed/valid/')
+    path = main_dir
+
+    try:
+        isExist = os.path.exists(path + '/reports')
+        isExist_2 = os.path.exists(path + '/reports/figures')
+        isExist_3 = os.path.exists(path + '/reports/figures/table')
+        if not isExist:
+            os.mkdir(path + '/reports')
+        if not isExist_2:
+            os.mkdir(path + '/reports/figures')
+        if not isExist_3:
+            os.mkdir(path + '/reports/figures/table')
+        print('ok')
+    except OSError as error: 
+        print(error)
+
+    path_to_data = os.path.join(main_dir, 'data/processed/')
     file = 'clean.csv'
     head_list = ['rot_bonds', 'h_acc', 'h_don', 'heavy_atoms', 'ring_count', 'bonds_count']
     path_to_stat = os.path.join(main_dir, "reports/figures/table")
@@ -112,10 +130,8 @@ def main():
     limit = 100
 
     data = analyze(file, head_list)
-    write_to_scv(path_to_stat, head_list, data)
+    write_to_csv(path_to_stat, head_list, data)
     head_list = ['mol_mass']
     data = mol_mass_stat(file, int_range, flag, limit)
-    write_to_scv(path_to_stat, head_list, data)
+    write_to_csv(path_to_stat, head_list, data)
 
-if __name__ == '__main__':
-    main()
