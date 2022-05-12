@@ -61,7 +61,7 @@ stat()
 ```
 
 6. **Visualize the statistics.**
-This will visualize the statistics of dataset
+This will visualize the statistics of dataset.
 By running following command you have to choose which statistic you have to visualize (by writing in console)
 Then user have a choice to [show] the plot, set the boundaries (by command [edit]), [save] the resulting plot or terminate the program execution [exit]
 
