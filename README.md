@@ -52,8 +52,7 @@ delete_dup()
 You get the standardized and cleaned dataset
 
 5. **Collecting statistics.**
-By given parameters collecting statistic from dataset
-
+Data collection by gathering and measuring information on targeted variables
 ```sh
 from chem_dataset.features.build_features import stat
 
@@ -62,7 +61,7 @@ stat()
 
 6. **Visualize the statistics.**
 This will visualize the statistics of dataset.
-By running following command you have to choose which statistic you have to visualize (by writing in console)
+By running following command you have to choose which statistic you have to visualize (by writing in a console).
 Then user have a choice to [show] the plot, set the boundaries (by command [edit]), [save] the resulting plot or terminate the program execution [exit]
 
 ```sh
