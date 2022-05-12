@@ -71,3 +71,8 @@ vis()
 ```
 
 Lastly, note that this is currently research code, so a lot of the documentation is inside individual Python files. If you wish to work with this code, you'll have to get familiar with it and be comfortable reading Python code.
+
+
+## License
+
+The software is licensed under the MIT license (see LICENSE file), and is free and provided as-is.
