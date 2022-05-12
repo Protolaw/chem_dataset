@@ -50,6 +50,7 @@ delete_dup()
 ```
 
 You get the standardized and cleaned dataset
+
 5. **Collecting statistics.**
 By given parameters collecting statistic from dataset
 
