@@ -24,6 +24,7 @@ load_data()
 
 3. **Parse/StandarDize the data.**
 In this step (longest by duration) you can choose by which method are going to parse your data (close all your threads for maximum efficiency)
+
 Alternative 1 : by using multiprocessing lib 
 
 ```sh
